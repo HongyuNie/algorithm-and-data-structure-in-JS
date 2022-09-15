@@ -92,14 +92,55 @@ class SinglyLinkedList {
         }
         return current;
     }
+
+    // set (index, val) {
+    //     if (index < 0 || index >= this.length) return null;
+    //     var counter = 0;
+    //     var current = this.head;
+    //     while (counter !== index) {
+    //         current = current.next;
+    //         counter++;
+    //     }
+    //     current.val = val;
+    //     return current;
+    // }
+
+    set (index, val) {
+        var foundNode = this.get(index);
+        if (foundNode) {
+            foundNode.val = val;
+            return true;
+        }
+        return false;
+    }
+
+    insert (index, val) {
+        if (index < 0 || index >= this.length) return false;
+        if (index === this.length) {
+            this.push(val);
+            return true;
+        }
+        //OR:
+        //if (index === this.length) return !!this.push(val); !!: doubly negate
+        if (index === 0) return !!this.unshift(val);
+        
+        var newNode = new Node(val);
+        //get the previous node
+        //insert into prev and index
+        var prev = this.get(index - 1);
+        var tmp = prev.next;
+        prev.next = newNode;
+        newNode.next = tmp;
+        this.length++;
+        return true;
+    }
+
 }
 
 var list = new SinglyLinkedList()
 list.push("HELLO")
 list.push("GOODBYE")
 list.push("!")
-list.pop();
-list.pop();
-list.pop();
+list.insert(1, 'WOW')
 
 console.log(list);
