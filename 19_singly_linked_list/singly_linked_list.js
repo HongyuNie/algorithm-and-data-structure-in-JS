@@ -146,13 +146,36 @@ class SinglyLinkedList {
         this.length--;
         return rmNode;
     }
+    reverse(){
+        var node = this.head;
+        this.head = this.tail;
+        this.tail = node;
+        var next;
+        var prev = null;
+        for(var i = 0; i < this.length; i++){
+          next = node.next;
+          node.next = prev;
+          prev = node;
+          node = next;
+        }
+        return this;
+      }
+    print () {
+        var arr = [];
+        var current = this.head;
+        while (current) {
+            arr.push(current.val);
+            current = current.next;
+        }
+        console.log(arr);
+    }
 
 }
 
 var list = new SinglyLinkedList()
-list.push("HELLO")
-list.push("GOODBYE")
-list.push("!")
-list.insert(1, 'WOW')
+list.push(100)
+list.push(200)
+list.push(300)
+list.push(400)
+list.push(999)
 
-console.log(list);
